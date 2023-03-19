@@ -25,4 +25,13 @@ mongoose.connection
 const movieRouter = require("./routes/movie");
 app.use("/movie", movieRouter);
 
+const actorsRouter = require("./routes/actors");
+app.use("/actors", actorsRouter);
+
+const categoryRouter = require("./routes/category");
+app.use("/category", categoryRouter);
+
+const countriesRouter = require("./routes/countries");
+app.use("/countries", countriesRouter);
+
 app.listen(8000, () => console.log("Listening to port 8000"));

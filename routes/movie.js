@@ -26,6 +26,7 @@ router.post("/save", async (req, res) => {
     language: req.body.language,
     category: req.body.category,
     director: req.body.director,
+    main_actor: req.body.main_actor,
   });
   try {
     const newMovie = await movie.save();
@@ -35,29 +36,29 @@ router.post("/save", async (req, res) => {
   }
 });
 
-//updating one
-router.patch("/update/:id", getMovie, async (req, res) => {
-  if (req.body.name != null) {
-    res.movie.name = req.body.name;
-  }
-  if (req.body.imageURL != null) {
-    res.movie.imageURL = req.body.imageURL;
-  }
-  if (req.body.languagecategory != null) {
-    res.movie.languagecategory = req.body.language;
-  }
-  if (req.body.category != null) {
-    res.movie.category = req.body.category;
-  }
-  if (req.body.director != null) {
-    res.movie.director = req.body.director;
-  }
-
+//update
+router.put("/update/:updateId", async (req, res) => {
+  const filter = { _id: req.params.updateId };
+  const options = {
+    upsert: true,
+    new: true,
+  };
   try {
-    const updatedMovie = await res.movie.save();
-    res.json(updatedMovie);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const result = await Movie.findOneAndUpdate(
+      filter,
+      {
+        name: req.body.name,
+        imageURL: req.body.imageURL,
+        language: req.body.language,
+        category: req.body.category,
+        director: req.body.director,
+        main_actor: req.body.main_actor,
+      },
+      options
+    );
+    res.status(200).send({ Movie: result });
+  } catch (error) {
+    res.status(400).send({ success: false, msg: error });
   }
 });
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const movieSchema = new mongoose.Schema(
+const actorSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,23 +11,15 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    language: {
+    country: {
       type: String,
       required: true,
     },
-
-    main_actor: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Actor",
-      },
-    ],
-
-    category: {
+    bio: {
       type: String,
       required: true,
     },
-    director: {
+    dob: {
       type: String,
       required: true,
     },
@@ -35,4 +27,4 @@ const movieSchema = new mongoose.Schema(
   //{ timestamps: true }
 );
 
-module.exports = mongoose.model("movie", movieSchema);
+module.exports = mongoose.model("actor", actorSchema);
